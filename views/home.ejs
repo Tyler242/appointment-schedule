@@ -7,6 +7,13 @@
     <title><%= pageTitle %></title>
   </head>
   <body>
-    <h1><%= msg %></h1>
+    <header><%- include("../views/includes/nav.ejs") %></header>
+    <main>
+      <h1><%= msg %></h1>
+      <% if (isAuthenticated) { %>
+      <h2>You are logged in!</h2>
+      <% } %>
+    </main>
+    <footer></footer>
   </body>
 </html>

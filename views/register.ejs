@@ -7,21 +7,15 @@
     <title><%= pageTitle %></title>
   </head>
   <body>
-    <header>
-      <ul>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/register">Register</a></li>
-        <li>
-          <form action="/logout" method="post">
-            <button type="submit">Logout</button>
-          </form>
-        </li>
-      </ul>
-    </header>
+    <header><%- include("../views/includes/nav.ejs") %></header>
     <main>
       <div id="content">
         <div class="form-container">
           <form action="/register" method="post" autocomplete="off">
+            <label for="name"
+              >Organization Name<br /><input name="name" type="text"
+            /></label>
+            <br />
             <label for="orgId"
               >Organization ID<br /><input name="orgId" type="text"
             /></label>
@@ -36,7 +30,8 @@
                 type="password"
             /></label>
             <br />
-            <button class="btn" type="submit">Login</button>
+            <input type="hidden" name="_csrf" value="<%=csrfToken %>" />
+            <button class="btn" type="submit">Register</button>
           </form>
         </div>
       </div>

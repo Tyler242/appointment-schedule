@@ -1,0 +1,15 @@
+<nav>
+  <ul>
+    <% if (!isAuthenticated) { %>
+    <li><a href="/login">Login</a></li>
+    <li><a href="/register">Register</a></li>
+    <% } else { %>
+    <li>
+      <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" value="<%=csrfToken %>" />
+        <button type="submit">Logout</button>
+      </form>
+    </li>
+    <% } %>
+  </ul>
+</nav>
