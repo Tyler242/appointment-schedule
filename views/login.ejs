@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+  </head>
+  <body>
+    <header>
+      <ul>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Register</a></li>
+        <li>
+          <form action="/logout" method="post">
+            <button type="submit">Logout</button>
+          </form>
+        </li>
+      </ul>
+    </header>
+    <main>
+      <div id="content">
+        <div class="form-container">
+          <form action="/login" method="post" autocomplete="off">
+            <label for="orgId"
+              >Organization ID<br /><input name="orgId" type="text"
+            /></label>
+            <br />
+            <label for="password"
+              >Password<br /><input name="password" type="password"
+            /></label>
+            <br />
+            <button class="btn" type="submit">Login</button>
+          </form>
+        </div>
+        <div class="link">
+          <a class="btn" href="/reset-password">Forgot Your Password?</a>
+        </div>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>
