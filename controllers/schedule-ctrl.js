@@ -3,6 +3,7 @@
 
 // import necessary files
 const OrgAccount = require('../models/org');
+const Profile = require('../models/profile');
 
 // /schedule => GET
 exports.getSchedule = (req, res, next) => {
@@ -46,7 +47,7 @@ exports.postProfile = (req, res, next) => {
   const lname = req.body.lname;
   const phone = req.body.phone;
   const position = req.body.position;
-  const availability = {
+  const available = {
     sun: req.body.Sunday,
     mon: req.body.Monday,
     tue: req.body.Tuesday,
@@ -56,11 +57,34 @@ exports.postProfile = (req, res, next) => {
     sat: req.body.Saturday,
   };
 
-  console.log(fname, lname, phone, position);
-  for (const [key, val] of Object.entries(availability)) {
-    if (val) {
-      console.log('Available on ' + key.toString());
+  for (var key of Object.keys(available)) {
+    if (available[key] === undefined) {
+      available[key] = false;
     }
   }
+
+  // add the new profile to the database
+  const newProfile = new Profile({
+    fname: fname,
+    lname: lname,
+    phone: phone,
+    availability: {
+      days: {
+        sun: available.sun,
+        mon: available.mon,
+        tue: available.tue,
+        wed: available.wed,
+        thu: available.thu,
+        fri: available.fri,
+        sat: available.sat,
+      },
+    },
+    position: position,
+  });
+
+  newProfile.save();
+
+  console.log(newProfile);
+
   res.redirect('/schedule/profile');
 };
