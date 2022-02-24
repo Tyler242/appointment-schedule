@@ -4,6 +4,8 @@
     <li><a class="nav-btn" href="/login">Login</a></li>
     <li><a class="nav-btn" href="/register">Register</a></li>
     <% } else { %>
+    <li><a class="nav-btn" href="/schedule">Schedule</a></li>
+    <li><a class="nav-btn" href="/schedule/profile">Add Profile</a></li>
     <li>
       <form action="/logout" method="post">
         <input type="hidden" name="_csrf" value="<%=csrfToken %>" />

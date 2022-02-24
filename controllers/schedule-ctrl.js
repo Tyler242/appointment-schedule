@@ -25,6 +25,7 @@ exports.getProfile = (req, res, next) => {
         phone: 1234567890,
         position: 'Bishop',
       },
+      isAuthenticated: req.session.isLoggedIn,
     });
     // leave form empty if we are not in edit mode
   } else {
@@ -35,6 +36,7 @@ exports.getProfile = (req, res, next) => {
         phone: '',
         position: '',
       },
+      isAuthenticated: req.session.isLoggedIn,
     });
   }
 };
@@ -86,5 +88,5 @@ exports.postProfile = (req, res, next) => {
 
   console.log(newProfile);
 
-  res.redirect('/schedule/profile');
+  res.redirect('/schedule');
 };

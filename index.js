@@ -13,6 +13,7 @@ require('dotenv').config();
 const authRoutes = require('./routes/auth-routes');
 const schRoutes = require('./routes/schedule-routes');
 const OrgAccount = require('./models/org');
+const isAuth = require('./middleware/is-auth');
 
 // set up the server
 const MONGODB_URL = process.env.MONGODB_URL || process.env.DB_CONNECTION;
@@ -83,7 +84,7 @@ app.use((req, res, next) => {
 });
 
 // set up routes
-app.use('/schedule', schRoutes);
+app.use('/schedule', isAuth, schRoutes);
 app.use(authRoutes);
 
 app.get('/', (req, res, next) => {
