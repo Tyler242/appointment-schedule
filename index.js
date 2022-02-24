@@ -11,6 +11,7 @@ require('dotenv').config();
 
 // import necessary files
 const authRoutes = require('./routes/auth-routes');
+const schRoutes = require('./routes/schedule-routes');
 const OrgAccount = require('./models/org');
 
 // set up the server
@@ -82,6 +83,7 @@ app.use((req, res, next) => {
 });
 
 // set up routes
+app.use('/schedule', schRoutes);
 app.use(authRoutes);
 
 app.get('/', (req, res, next) => {

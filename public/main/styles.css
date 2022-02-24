@@ -1,0 +1,49 @@
+body {
+  background-color: #f4f7f5;
+  width: 100%;
+}
+
+body header {
+  background-color: #00978d;
+  color: #f4f7f5;
+}
+
+body header nav ul {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+body header nav ul .nav-btn:visited,
+body header nav ul .nav-btn:link,
+body header nav ul button.nav-btn {
+  display: inline-block;
+  min-width: 75px;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-align: center;
+  text-decoration: none;
+  background-color: #00978d;
+  color: #f4f7f5;
+  border: 1px solid #f4f7f5;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+body header nav ul .nav-btn:hover {
+  background-color: #f4f7f5;
+  color: #00978d;
+  border-color: #00978d;
+}
+
+body main #content {
+  margin: 40px 15px;
+}
+/*# sourceMappingURL=styles.css.map */

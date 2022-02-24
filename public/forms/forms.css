@@ -1,0 +1,47 @@
+body main .form-container form {
+  width: 20rem;
+  max-width: 90%;
+  margin: 0 auto;
+  display: block;
+}
+
+body main .form-container form .form-control {
+  margin: 1rem 0;
+}
+
+body main .form-container form .form-control label,
+body main .form-container form .form-control input,
+body main .form-container form .form-control textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+body main .form-container form .form-control input,
+body main .form-container form .form-control textarea {
+  height: 30px;
+  border: 1px solid #575a5e;
+  border-radius: 2px;
+}
+
+body main .form-container form .form-control input[type='checkbox'] {
+  display: inline;
+  height: 20px;
+  width: 20px;
+}
+
+body main .form-container form .btn {
+  padding: 4px 12px;
+}
+
+body main .form-container form a.btn {
+  text-decoration: none;
+  color: black;
+  border: 1px solid #858585;
+  border-radius: 2px;
+}
+
+body main .form-container form a.btn:hover {
+  background-color: #dddddd;
+}
+/*# sourceMappingURL=forms.css.map */

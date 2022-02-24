@@ -35,7 +35,9 @@ exports.postLogin = (req, res, next) => {
             req.session.org = org;
             return req.session.save((err) => {
               console.log(err);
-              res.redirect('/');
+              // if the user is successfully authenticated,
+              // redirect them to the schedule app
+              res.redirect('/schedule');
             });
           }
           //   if the passwords do not match, redirect to /login

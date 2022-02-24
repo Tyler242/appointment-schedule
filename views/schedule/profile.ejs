@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/normalize.css" />
+    <link rel="stylesheet" href="/main/styles.css" />
+    <link rel="stylesheet" href="/forms/forms.css" />
+    <title>Add/Edit Profile</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <br />
+        <br />
+      </nav>
+    </header>
+    <main>
+      <div id="content">
+        <div class="form-container">
+          <form action="/schedule/profile" method="post" autocomplete="off">
+            <div class="form-control">
+              <label for="fname">First Name</label>
+              <input
+                type="text"
+                name="fname"
+                id="fname"
+                value="<%= oldInput.fname %>"
+              />
+            </div>
+            <div class="form-control">
+              <label for="lname">Last Name</label>
+              <input
+                type="text"
+                name="lname"
+                id="lname"
+                value="<%= oldInput.lname %>"
+              />
+            </div>
+            <div class="form-control">
+              <label for="phone">Phone Number</label>
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                value="<%= oldInput.phone %>"
+              />
+            </div>
+            <div class="form-control">
+              <label for="availability">Availability</label>
+              <input type="checkbox" name="Sunday" value="true" /> Sunday<br />
+              <input type="checkbox" name="Monday" value="true" /> Monday<br />
+              <input type="checkbox" name="Tuesday" value="true" />
+              Tuesday<br />
+              <input type="checkbox" name="Wednesday" value="true" />
+              Wednesday<br />
+              <input type="checkbox" name="Thursday" value="true" />
+              Thursday<br />
+              <input type="checkbox" name="Friday" value="true" /> Friday<br />
+              <input type="checkbox" name="Saturday" value="true" />
+              Saturday<br />
+            </div>
+            <div class="form-control">
+              <label for="position">Position</label>
+              <input
+                type="text"
+                name="position"
+                id="position"
+                value="<%= oldInput.position %>"
+              />
+            </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <button class="btn" type="submit">Add/Update Profile</button>
+          </form>
+        </div>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>

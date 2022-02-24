@@ -1,3 +1,6 @@
 node_modules
+color-pallete.png
 .env
 *.rest
+*.scss
+*.css.map
