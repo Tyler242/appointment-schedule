@@ -55,6 +55,10 @@ const profileSchema = new Schema({
     type: String,
     required: false,
   },
+  orgId: {
+    type: Schema.Types.ObjectId,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('Profile', profileSchema);

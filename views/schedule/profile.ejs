@@ -14,14 +14,18 @@
     <main>
       <div id="content">
         <div class="form-container">
-          <form action="/schedule/profile" method="post" autocomplete="off">
+          <form
+            action="<% if (!editing) { %>/schedule/profile<% } else { %>/schedule/update-profile<% } %>"
+            method="post"
+            autocomplete="off"
+          >
             <div class="form-control">
               <label for="fname">First Name</label>
               <input
                 type="text"
                 name="fname"
                 id="fname"
-                value="<%= oldInput.fname %>"
+                value="<% if (editing) { %><%= profile.fname %><% } %>"
               />
             </div>
             <div class="form-control">
@@ -30,7 +34,7 @@
                 type="text"
                 name="lname"
                 id="lname"
-                value="<%= oldInput.lname %>"
+                value="<% if (editing) { %><%= profile.lname %><% } %>"
               />
             </div>
             <div class="form-control">
@@ -39,7 +43,7 @@
                 type="tel"
                 name="phone"
                 id="phone"
-                value="<%= oldInput.phone %>"
+                value="<% if (editing) { %><%= profile.phone %><% } %>"
               />
             </div>
             <div class="form-control">
@@ -62,11 +66,14 @@
                 type="text"
                 name="position"
                 id="position"
-                value="<%= oldInput.position %>"
+                value="<% if (editing) { %><%= profile.position %><% } %>"
               />
             </div>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-            <button class="btn" type="submit">Add/Update Profile</button>
+            <button class="btn" type="submit">
+              <% if (editing) { %>Update Profile<% } else { %>Create Profile<% }
+              %>
+            </button>
           </form>
         </div>
       </div>

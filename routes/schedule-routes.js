@@ -10,11 +10,18 @@ const router = express.Router();
 
 // routing for all /schedule requests
 
+router.get('/profile/:profileId', schCtrl.getEditProfile);
+
 // /schedule/profile => GET
 router.get('/profile', schCtrl.getProfile);
 
 // /schedule/profile => POST
 router.post('/profile', schCtrl.postProfile);
+
+// /schedule/add-appointment => POST
+router.post('/add-appointment', schCtrl.postAppointment);
+
+router.get('/load/:profileId/:date', schCtrl.getScheduleData);
 
 // /schedule => GET
 router.get('/', schCtrl.getSchedule);

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/normalize.css" />
+    <link rel="stylesheet" href="/main/styles.css" />
+    <link rel="stylesheet" href="/forms/forms.css" />
+    <script src="/js/schedule-layout.js" defer></script>
+    <title><%= pageTitle %></title>
+  </head>
+  <body>
+    <header><%- include('../includes/nav.ejs') %></header>
+    <main>
+      <div id="content">
+        <h1><%= orgName %></h1>
+        <div id="date-container">
+          <input type="date" name="date-select" id="date-select" />
+          <button id="date-btn">View Day</button>
+        </div>
+        <div id="layout">
+          <% if (profiles.length != 0) { %>
+          <div id="day-profile-view">
+            <% for (const profile of profiles) { %>
+            <div class="profile-container">
+              <h3><%= profile.fname %> <%= profile.lname %></h3>
+              <section>
+                <p>
+                  Phone:
+                  <a href="tel:<%= profile.phone %> "><%= profile.phone %></a>
+                </p>
+                <p>Position: <%= profile.position %></p>
+                <a
+                  class="btn"
+                  href="/schedule/profile/<%= profile._id %>?edit=true"
+                  >Edit Profile</a
+                >
+              </section>
+              <div class="schedule" id="<%= profile._id %>"></div>
+            </div>
+            <% } %>
+          </div>
+          <% } else { %>
+          <a href="/schedule/profile">Create Profile</a>
+          <% } %>
+        </div>
+        <div class="form-container">
+          <form
+            action="/schedule/add-appointment"
+            method="POST"
+            autocomplete="off"
+          >
+            <div class="form-control">
+              <label for="name">Name</label>
+              <input type="text" name="name" id="name-input" required />
+            </div>
+            <div class="form-control">
+              <label for="day">Day</label>
+              <input type="date" name="day" id="" required />
+            </div>
+            <div class="form-control">
+              <label for="start">Start Time</label>
+              <input type="time" name="start" id="start-time" required />
+            </div>
+            <div class="form-control">
+              <label for="duration">Duration (Minutes)</label>
+              <input type="number" name="duration" id="duration" required />
+            </div>
+            <div class="form-control">
+              <label for="phone">Phone</label>
+              <input type="tel" name="phone" id="phone" required />
+            </div>
+            <div class="form-control">
+              <label for="profile">Interviewer</label>
+              <select name="profile" id="profile-select" required>
+                <% for (const profile of profiles) { %>
+                <option value="<%= profile._id %>">
+                  <%= profile.fname %> <%= profile.lname %>
+                </option>
+                <% } %>
+              </select>
+            </div>
+            <div class="form-control">
+              <label for="reason">Reason for Visit</label>
+              <textarea
+                name="reason"
+                id="reason"
+                cols="30"
+                rows="10"
+                required
+              ></textarea>
+            </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <button type="submit">Add Appointment</button>
+          </form>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <button id="change-view">Change View</button>
+    </footer>
+  </body>
+</html>
