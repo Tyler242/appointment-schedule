@@ -112,7 +112,12 @@ exports.postAppointment = (req, res, next) => {
   // format a date object
   const day = req.body.day;
   const time = req.body.start;
-  const dateTime = new Date(day);
+  const dateTime = new Date();
+
+  dateTime.setFullYear(day.split('-')[0]);
+  dateTime.setMonth(day.split('-')[1] - 1);
+  dateTime.setDate(day.split('-')[2]);
+
   dateTime.setHours(time.split(':')[0]);
   dateTime.setMinutes(time.split(':')[1]);
 
@@ -144,10 +149,9 @@ exports.postAppointment = (req, res, next) => {
 //
 exports.getScheduleData = (req, res, next) => {
   const profileId = req.params.profileId;
-  const date = req.params.date;
-  console.log(date);
+  const newDate = new Date(req.params.date);
+  const dateString = newDate.toLocaleDateString();
 
-  // get the schedule based on the profileId
   Schedule.findOne({ profileId: profileId })
     .then((sch) => {
       // if no schedule was found
@@ -155,7 +159,13 @@ exports.getScheduleData = (req, res, next) => {
         console.log('No schedule found');
         return;
       }
-      res.status(200).json({ appointments: sch.schedule.appointments });
+
+      // use the filter method to sort through the appointments
+      const filteredApnt = sch.schedule.appointments.filter(
+        (apt) => apt.dayTime.toLocaleDateString() === dateString
+      );
+
+      res.status(200).json({ appointments: filteredApnt });
     })
     .catch((err) => {
       console.log(err);

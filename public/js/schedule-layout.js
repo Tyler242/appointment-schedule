@@ -16,7 +16,8 @@ function getElements() {
   const scheduleElements = [...document.getElementsByClassName('schedule')];
   scheduleElements.forEach((elem) => {
     let url = baseUrl + elem.id + '/' + getDate();
-    console.log(url);
+    // console.log(url);
+    getData(url);
   });
 }
 
@@ -32,10 +33,23 @@ function getDate() {
     if (monthString.length === 1) {
       monthString = '0' + monthString;
     }
-
-    return dateObj.getFullYear() + '-' + monthString + '-' + dateObj.getDate();
+    const dateString =
+      dateObj.getFullYear() + '-' + monthString + '-' + dateObj.getDate();
+    return dateString;
   }
-  return date;
+
+  // configure the date
+  const year = date.split('-')[0];
+  const month = date.split('-')[1];
+  let day = date.split('-')[2];
+
+  // if the day of the month has a leading zero, remove it
+  if (day.charAt(0) === '0') {
+    day = day.charAt(1);
+  }
+
+  const dateString = year + '-' + month + '-' + day;
+  return dateString;
 }
 
 async function apiFetch(url) {
