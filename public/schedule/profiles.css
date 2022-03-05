@@ -1,0 +1,38 @@
+body #day-profile-view {
+  display: block;
+}
+
+body #day-profile-view .profile-container {
+  max-width: 100%;
+  margin: 20px auto;
+  background-color: #a7a2a9;
+  color: #222823;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+body #day-profile-view .profile-container h3 {
+  text-align: center;
+}
+
+body #day-profile-view .profile-container section {
+  margin-bottom: 18px;
+  font-weight: bold;
+}
+
+body #day-profile-view .profile-container section a,
+body #day-profile-view .profile-container section a:visited,
+body #day-profile-view .profile-container section a:link {
+  text-decoration: none;
+  color: #4124ee;
+}
+
+@media screen and (min-width: 640px) {
+  body #day-profile-view .profile-container {
+    max-width: 70%;
+  }
+  body #day-profile-view .profile-container section {
+    text-align: center;
+  }
+}
+/*# sourceMappingURL=profiles.css.map */

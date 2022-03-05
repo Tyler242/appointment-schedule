@@ -165,7 +165,9 @@ exports.getScheduleData = (req, res, next) => {
         (apt) => apt.dayTime.toLocaleDateString() === dateString
       );
 
-      res.status(200).json({ appointments: filteredApnt });
+      res
+        .status(200)
+        .json({ appointments: filteredApnt, profileId: sch.profileId });
     })
     .catch((err) => {
       console.log(err);

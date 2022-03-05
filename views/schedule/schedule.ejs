@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/normalize.css" />
     <link rel="stylesheet" href="/main/styles.css" />
     <link rel="stylesheet" href="/forms/forms.css" />
+    <link rel="stylesheet" href="/schedule/profiles.css" />
     <script src="/js/schedule-layout.js" defer></script>
     <title><%= pageTitle %></title>
   </head>
@@ -26,7 +27,7 @@
             <div class="profile-container">
               <h3><%= profile.fname %> <%= profile.lname %></h3>
               <section>
-                <p>
+                <p class="phone-p">
                   Phone:
                   <a href="tel:<%= profile.phone %> "><%= profile.phone %></a>
                 </p>
