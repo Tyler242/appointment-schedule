@@ -208,3 +208,27 @@ exports.getEditProfile = (req, res, next) => {
 };
 
 exports.postEditProfile = (req, res, next) => {};
+
+exports.deleteAppointment = (req, res, next) => {
+  // get parameters
+  const profileId = req.params.profileId;
+  const schId = req.params.schId;
+
+  Schedule.findOne({ profileId: profileId })
+    .then((schedule) => {
+      // if no schedule was found...
+      if (!schedule) {
+        console.log('no schedule found.');
+        return res.redirect('/schedule');
+      }
+      return schedule.removeAppointment(schId);
+    })
+    .then((result) => {
+      res.redirect('/schedule');
+    })
+    .catch((err) => {
+      console.log(err);
+
+      res.redirect('/schedule');
+    });
+};

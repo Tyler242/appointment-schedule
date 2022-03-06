@@ -60,6 +60,7 @@ async function apiFetch(url) {
 
 const getData = async (url) => {
   const data = await apiFetch(url);
+  console.log(data);
   loadData(data);
 };
 
@@ -70,7 +71,22 @@ function sortData(data) {
   return data.appointments;
 }
 
-function generateHtml(appointment, parentElem) {
+function formatTimeString(date) {
+  // format the hours and get am or pm
+  let hours = date.getHours();
+  let amOrPm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour 0 should be 12.
+
+  // format the minutes
+  let minutes = date.getMinutes();
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+
+  // return the time string
+  return hours + ':' + minutes + ' ' + amOrPm;
+}
+
+function generateHtml(appointment, profileId) {
   /**
    * .name = name, String, MOBILE
    * .dayTme = starting day and time, Date object, MOBILE
@@ -81,23 +97,109 @@ function generateHtml(appointment, parentElem) {
   const sectionElem = document.createElement('div');
   sectionElem.className = 'appointment';
 
+  // column one
+  const divOne = document.createElement('div');
+  divOne.className = 'apt-box-1';
+
   const nameElem = document.createElement('p');
   nameElem.className = 'apt-name';
   nameElem.innerHTML = appointment.name;
 
+  const phoneElem1 = document.createElement('a');
+  phoneElem1.className = 'apt-phone1';
+  phoneElem1.href = 'tel:' + appointment.phone;
+  phoneElem1.innerHTML = appointment.phone;
+
+  divOne.appendChild(nameElem);
+  divOne.appendChild(phoneElem1);
+
+  // column two
+  const divTwo = document.createElement('div');
+  divTwo.className = 'apt-box-2';
+
   const timeElem = document.createElement('p');
   timeElem.className = 'apt-time';
   timeElem.innerHTML =
-    appointment.dayTime.getHours() + ':' + appointment.dayTime.getMinutes();
+    '<b>Start time: </b>' + formatTimeString(appointment.dayTime);
 
-  const phoneElem = document.createElement('p');
-  phoneElem.className = 'apt-phone';
-  phoneElem.innerHTML = appointment.phone;
+  const durationElem = document.createElement('p');
+  durationElem.className = 'apt-duration';
+  durationElem.innerHTML = '<b>Duration: </b>' + appointment.duration;
 
-  // add all the info to the section
-  sectionElem.appendChild(nameElem);
-  sectionElem.appendChild(timeElem);
-  sectionElem.appendChild(phoneElem);
+  const detailsBtn = document.createElement('button');
+  detailsBtn.className = 'apt-details-btn';
+  detailsBtn.id = appointment._id;
+  detailsBtn.innerHTML = 'Details';
+
+  divTwo.appendChild(timeElem);
+  divTwo.appendChild(durationElem);
+  divTwo.appendChild(detailsBtn);
+
+  // column three
+  const divThree = document.createElement('div');
+  divThree.className = 'apt-box-3';
+
+  // delete form
+  const delForm = document.createElement('form');
+  delForm.action = '/schedule/delete/' + profileId + '/' + appointment._id;
+  delForm.method = 'post';
+
+  // delete button
+  const delBtn = document.createElement('button');
+  delBtn.className = 'apt-delete';
+  delBtn.type = 'submit';
+  // delBtn.href = '/schedule/delete/' + appointment._id;
+  delBtn.innerHTML = 'Delete';
+
+  // delete csrf token
+  const delInput = document.createElement('input');
+  delInput.type = 'hidden';
+  delInput.name = '_csrf';
+  delInput.value = document.getElementById('_csrf').value;
+
+  delForm.appendChild(delBtn);
+  delForm.appendChild(delInput);
+
+  const phoneElem2 = document.createElement('a');
+  phoneElem2.className = 'apt-phone2';
+  phoneElem2.href = 'tel:' + appointment.phone;
+  phoneElem2.innerHTML = appointment.phone;
+
+  divThree.appendChild(delForm);
+  divThree.appendChild(phoneElem2);
+
+  // reason element
+  const reasonElem = document.createElement('p');
+  reasonElem.className = 'reason';
+  reasonElem.innerHTML = '<b>Reason: </b>' + appointment.reason;
+
+  // add each column to the section
+  sectionElem.appendChild(divOne);
+  sectionElem.appendChild(divTwo);
+  sectionElem.appendChild(divThree);
+  sectionElem.appendChild(reasonElem);
+
+  // details button event listener
+  detailsBtn.addEventListener('click', () => {
+    if (detailsBtn.className !== 'apt-details-btn active') {
+      detailsBtn.className = 'apt-details-btn active';
+      phoneElem1.style.display = 'block';
+      durationElem.style.display = 'block';
+      delBtn.style.display = 'block';
+      reasonElem.style.display = 'block';
+      phoneElem2.style.display = 'none';
+      detailsBtn.innerHTML = 'Hide';
+    } else {
+      detailsBtn.className = 'apt-details-btn';
+      phoneElem1.style.display = 'none';
+      durationElem.style.display = 'none';
+      delBtn.style.display = 'none';
+      reasonElem.style.display = 'none';
+      phoneElem2.style.display = 'block';
+      detailsBtn.innerHTML = 'Details';
+    }
+  });
+
   return sectionElem;
 }
 
@@ -105,12 +207,13 @@ function loadData(data) {
   // sort the data by time
   if (data.appointments.length > 0) {
     const sortedData = sortData(data);
+    profileId = data.profileId;
 
     // get the div for the content
-    const sectionElem = document.getElementById(data.profileId);
+    const sectionElem = document.getElementById(profileId);
 
     sortedData.forEach((item) => {
-      sectionElem.appendChild(generateHtml(item, sectionElem));
+      sectionElem.appendChild(generateHtml(item, profileId));
     });
   } else {
     console.log('No data');
@@ -119,6 +222,8 @@ function loadData(data) {
 }
 
 getElements();
+
+// event listeners and functions
 
 function dateButtonControl() {
   // clear previous day data

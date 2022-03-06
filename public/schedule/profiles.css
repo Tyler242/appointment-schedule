@@ -27,12 +27,44 @@ body #day-profile-view .profile-container section a:link {
   color: #4124ee;
 }
 
+body #day-profile-view .profile-container .schedule .appointment {
+  background-color: #f4f7f5;
+  border: 1px solid #222823;
+  border-left: 4px solid #00978d;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+body #day-profile-view .profile-container .schedule .appointment .apt-duration,
+body #day-profile-view .profile-container .schedule .appointment .apt-phone1,
+body #day-profile-view .profile-container .schedule .appointment .apt-delete,
+body #day-profile-view .profile-container .schedule .appointment .reason {
+  display: none;
+}
+
+body #day-profile-view .profile-container .schedule .appointment .reason {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1/4;
+}
+
 @media screen and (min-width: 640px) {
   body #day-profile-view .profile-container {
     max-width: 70%;
   }
   body #day-profile-view .profile-container section {
     text-align: center;
+  }
+  body #day-profile-view .profile-container .schedule .appointment {
+    padding: 5px;
   }
 }
 /*# sourceMappingURL=profiles.css.map */

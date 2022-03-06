@@ -54,4 +54,12 @@ scheduleSchema.methods.addAppointment = function (appointment) {
   return this.save();
 };
 
+scheduleSchema.methods.removeAppointment = function (schId) {
+  const updatedSchedule = this.schedule.appointments.filter((item) => {
+    return item._id.toString() !== schId.toString();
+  });
+  this.schedule.appointments = updatedSchedule;
+  return this.save();
+};
+
 module.exports = mongoose.model('Schedule', scheduleSchema);

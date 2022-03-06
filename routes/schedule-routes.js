@@ -23,6 +23,8 @@ router.post('/add-appointment', schCtrl.postAppointment);
 
 router.get('/load/:profileId/:date', schCtrl.getScheduleData);
 
+router.post('/delete/:profileId/:schId', schCtrl.deleteAppointment);
+
 // /schedule => GET
 router.get('/', schCtrl.getSchedule);
 

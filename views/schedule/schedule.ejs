@@ -92,7 +92,12 @@
                 required
               ></textarea>
             </div>
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <input
+              type="hidden"
+              name="_csrf"
+              id="_csrf"
+              value="<%= csrfToken %>"
+            />
             <button type="submit">Add Appointment</button>
           </form>
         </div>
