@@ -146,7 +146,7 @@ exports.postAppointment = (req, res, next) => {
   res.redirect('/schedule');
 };
 
-//
+// Respond with JSON object containing schedule for the day.
 exports.getScheduleData = (req, res, next) => {
   const profileId = req.params.profileId;
   const newDate = new Date(req.params.date);
